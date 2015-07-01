@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Block Chain Home</title>
+
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap\dist\css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+  
+    <div ng-controller = 'MasterCtrl' class="container theme-showcase" role="main">
+      <!-- Main jumbotron for block chain website -->
+      <div class="jumbotron">
+        <h1>Block Chain Explorer</h1>
+        
+		<p>Find your favourite block below!</p>
+		
+		<div class="form-group">
+          <input type="text" placeholder = "Search" class="form-control">
+        
+		</div>
+	    <button type="submit" class="btn btn-success">{{hello}}Search</button>
+      </div>
+
+	  <div class="page-header">
+        <h1>Blocks</h1>
+		<button type="submit" class="btn btn-success">Previous</button>
+      </div>
+	  
+	  <div class="col-md-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Index</th>
+                <th>Hash</th>
+                <th>Height</th>
+              </tr>
+            </thead>
+            <tbody data-link = "row">
+              <tr>
+                <td><a href = "#/block">1</a></td>
+                <td>hash</td>
+                <td>height</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+	  
+	</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bower_components/bootstrap\dist\js/bootstrap.min.js"></script>
+  </body>
+</html>
