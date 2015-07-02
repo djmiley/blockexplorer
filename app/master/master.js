@@ -16,124 +16,62 @@ angular.module('myApp.master', ['ngRoute'])
 	
 	$scope.latestBlock = [];
 	
-    $http.get("http://localhost:8080/blockchain/latestblock")
-    .success(function (data, status, headers, config) {
-	  $scope.latestBlock = data;
-	  
-	  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.hash)
-		.success(function (data, status, headers, config) {
-		  $scope.lastTenBlocks.push(data);
-		  $scope.latestBlock = data;
+		$http.get("http://localhost:8080/blockchain/latestblock")
+		.then(function (result) {
+		  $scope.latestBlock = result.data;
 		  
-		  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
-			.success(function (data, status, headers, config) {
-			  $scope.lastTenBlocks.push(data);
-			  $scope.latestBlock = data;
-			  
-			  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
-				.success(function (data, status, headers, config) {
-				  $scope.lastTenBlocks.push(data);
-				  $scope.latestBlock = data;
-				  
-				  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
-					.success(function (data, status, headers, config) {
-					  $scope.lastTenBlocks.push(data);
-					  $scope.latestBlock = data;
-					  
-					  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
-						.success(function (data, status, headers, config) {
-						  $scope.lastTenBlocks.push(data);
-						  $scope.latestBlock = data;
-						  
-						  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
-							.success(function (data, status, headers, config) {
-							  $scope.lastTenBlocks.push(data);
-							  $scope.latestBlock = data;
-							  
-							  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
-								.success(function (data, status, headers, config) {
-								  $scope.lastTenBlocks.push(data);
-								  $scope.latestBlock = data;
-								  
-								  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
-									.success(function (data, status, headers, config) {
-									  $scope.lastTenBlocks.push(data);
-									  $scope.latestBlock = data;
-									  
-									  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
-										.success(function (data, status, headers, config) {
-										  $scope.lastTenBlocks.push(data);
-										  $scope.latestBlock = data;
-										  
-										  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
-											.success(function (data, status, headers, config) {
-											  $scope.lastTenBlocks.push(data);
-											  $scope.latestBlock = data;
-											  return data;
-											}).error(function (data, status, headers, config) {
-											  alert("error");
-											  return status;
-											});
-										  
-										  return data;
-										}).error(function (data, status, headers, config) {
-										  alert("error");
-										  return status;
-										});
-									  
-									  return data;
-									}).error(function (data, status, headers, config) {
-									  alert("error");
-									  return status;
-									});
-								  
-								  return data;
-								}).error(function (data, status, headers, config) {
-								  alert("error");
-								  return status;
-								});
-							  
-							  return data;
-							}).error(function (data, status, headers, config) {
-							  alert("error");
-							  return status;
-							});
-						  
-						  return data;
-						}).error(function (data, status, headers, config) {
-						  alert("error");
-						  return status;
-						});
-					  
-					  return data;
-					}).error(function (data, status, headers, config) {
-					  alert("error");
-					  return status;
-					});
-				  
-				  return data;
-				}).error(function (data, status, headers, config) {
-				  alert("error");
-				  return status;
-				});
-			  
-			  return data;
-			}).error(function (data, status, headers, config) {
-			  alert("error");
-			  return status;
-			});
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.hash);
+		}).then(function (result) {
+		  $scope.lastTenBlocks.push(result.data);
+		  $scope.latestBlock = result.data;
 		  
-		  return data;
-		}).error(function (data, status, headers, config) {
-		  alert("error");
-		  return status;
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}).then(function (result) {
+		  $scope.lastTenBlocks.push(result.data);
+		  $scope.latestBlock = result.data;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}).then(function (result) {
+		  $scope.lastTenBlocks.push(result.data);
+		  $scope.latestBlock = result.data;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}).then(function (result) {
+		  $scope.lastTenBlocks.push(result.data);
+		  $scope.latestBlock = result.data;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}).then(function (result) {
+		  $scope.lastTenBlocks.push(result.data);
+		  $scope.latestBlock = result.data;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}).then(function (result) {
+		  $scope.lastTenBlocks.push(result.data);
+		  $scope.latestBlock = result.data;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}).then(function (result) {
+		  $scope.lastTenBlocks.push(result.data);
+		  $scope.latestBlock = result.data;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}).then(function (result) {
+		  $scope.lastTenBlocks.push(result.data);
+		  $scope.latestBlock = result.data;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}).then(function (result) {
+		  $scope.lastTenBlocks.push(result.data);
+		  $scope.latestBlock = result.data;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}).then(function (result) {
+		  $scope.lastTenBlocks.push(result.data);
+		  $scope.latestBlock = result.data;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
 		});
-			
-      return data;
-    }).error(function (data, status, headers, config) {
-      alert("error");
-      return status;
-    });
 	
 	$scope.previous = function() {
 		
