@@ -11,35 +11,126 @@ angular.module('myApp.master', ['ngRoute'])
 
 .controller('MasterCtrl', ['$scope', '$http', function($scope, $http) {
 	
-  /*require(['request'], function(request) {
-	  var url = 'https://blockchain.info/latestblock';
-  
-	  request({
-		url: url,
-		json: true
-	  },function(error, response, body){
-		if (!error && response.statusCode == 200) {
-		  $scope.latestBlock = body; 
-		  console.log(body);
-		} else {
-			console.log(response.statusCode)
-		}
-	  });
-  });*/
+	$scope.lastTenBlocks = [];
 	
-  /*var request = require(['request']);
-  
-  var url = 'https://blockchain.info/latestblock';
-  
-  request({
-	url: url,
-	json: true
-  },function(error, response, body){
-	if (!error && response.statusCode == 200) {
-	  $scope.latestBlock = body; 
-	  console.log(body);
-    } else {
-		console.log(response.statusCode)
-	}
-  });*/
+	$scope.latestBlock = [];
+	
+    $http.get("http://localhost:8080/blockchain/latestblock")
+    .success(function (data, status, headers, config) {
+	  $scope.latestBlock = data;
+	  
+	  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.hash)
+		.success(function (data, status, headers, config) {
+		  $scope.lastTenBlocks.push(data);
+		  $scope.latestBlock = data;
+		  
+		  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+			.success(function (data, status, headers, config) {
+			  $scope.lastTenBlocks.push(data);
+			  $scope.latestBlock = data;
+			  
+			  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+				.success(function (data, status, headers, config) {
+				  $scope.lastTenBlocks.push(data);
+				  $scope.latestBlock = data;
+				  
+				  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+					.success(function (data, status, headers, config) {
+					  $scope.lastTenBlocks.push(data);
+					  $scope.latestBlock = data;
+					  
+					  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+						.success(function (data, status, headers, config) {
+						  $scope.lastTenBlocks.push(data);
+						  $scope.latestBlock = data;
+						  
+						  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+							.success(function (data, status, headers, config) {
+							  $scope.lastTenBlocks.push(data);
+							  $scope.latestBlock = data;
+							  
+							  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+								.success(function (data, status, headers, config) {
+								  $scope.lastTenBlocks.push(data);
+								  $scope.latestBlock = data;
+								  
+								  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+									.success(function (data, status, headers, config) {
+									  $scope.lastTenBlocks.push(data);
+									  $scope.latestBlock = data;
+									  
+									  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+										.success(function (data, status, headers, config) {
+										  $scope.lastTenBlocks.push(data);
+										  $scope.latestBlock = data;
+										  
+										  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+											.success(function (data, status, headers, config) {
+											  $scope.lastTenBlocks.push(data);
+											  $scope.latestBlock = data;
+											  return data;
+											}).error(function (data, status, headers, config) {
+											  alert("error");
+											  return status;
+											});
+										  
+										  return data;
+										}).error(function (data, status, headers, config) {
+										  alert("error");
+										  return status;
+										});
+									  
+									  return data;
+									}).error(function (data, status, headers, config) {
+									  alert("error");
+									  return status;
+									});
+								  
+								  return data;
+								}).error(function (data, status, headers, config) {
+								  alert("error");
+								  return status;
+								});
+							  
+							  return data;
+							}).error(function (data, status, headers, config) {
+							  alert("error");
+							  return status;
+							});
+						  
+						  return data;
+						}).error(function (data, status, headers, config) {
+						  alert("error");
+						  return status;
+						});
+					  
+					  return data;
+					}).error(function (data, status, headers, config) {
+					  alert("error");
+					  return status;
+					});
+				  
+				  return data;
+				}).error(function (data, status, headers, config) {
+				  alert("error");
+				  return status;
+				});
+			  
+			  return data;
+			}).error(function (data, status, headers, config) {
+			  alert("error");
+			  return status;
+			});
+		  
+		  return data;
+		}).error(function (data, status, headers, config) {
+		  alert("error");
+		  return status;
+		});
+			
+      return data;
+    }).error(function (data, status, headers, config) {
+      alert("error");
+      return status;
+    });
 }]);

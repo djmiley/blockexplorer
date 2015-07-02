@@ -35,16 +35,16 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Index</th>
-                <th>Hash</th>
                 <th>Height</th>
+                <th>Hash</th>
+                <th>Transaction Index</th>
               </tr>
             </thead>
-            <tbody data-link = "row">
+            <tbody data-link = "row" ng-repeat="block in lastTenBlocks">
               <tr>
-                <td><a href = "#/block">1</a></td>
-                <td>hash</td>
-                <td>height</td>
+                <td><a href = "#/block/{{block.height}}">{{block.height}}</a></td>
+                <td>{{block.hash}}</td>
+                <td>{{block.block_index}}</td>
               </tr>
             </tbody>
           </table>
