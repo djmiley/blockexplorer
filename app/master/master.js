@@ -132,4 +132,9 @@ angular.module('myApp.master', ['ngRoute'])
 		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
 		});
     }
+	
+	$scope.searchFilter = function (obj) {
+		var re = new RegExp($scope.searchText, 'i');
+		return !$scope.searchText || re.test(obj.height.toString()) || re.test(obj.hash.toString()) || re.test(obj.block_index.toString());
+	};
 }]);
