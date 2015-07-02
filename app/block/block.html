@@ -28,24 +28,36 @@
 		  
 		  <div class="col-sm-12">
 			  <ul class="list-group">
-				<li class="list-group-item">Dynamically generated list item info</li>
+				<li class="list-group-item">Height : {{latestBlock.height}}</li>
+				<li class="list-group-item">Block Index : {{latestBlock.block_index}}</li>
+				<li class="list-group-item">Hash : {{latestBlock.hash}}</li>
+				<li class="list-group-item">Merkle Root : {{latestBlock.mrkl_root}}</li>
+				<li class="list-group-item">Number of transactions : {{latestBlock.n_tx}}</li>
+				<li class="list-group-item">Time : {{latestBlock.time}}</li>
+				<li class="list-group-item">Bits : {{latestBlock.bits}}</li>
+				<li class="list-group-item">Fee : {{latestBlock.fee}}</li>
+				<li class="list-group-item">Nonce : {{latestBlock.nonce}}</li>
 			  </ul>
 		  </div>
+		  
+		  <h1>Transactions</h1>
 		  
 		  <div class="col-md-12">
 			  <table class="table">
 				<thead>
 				  <tr>
-					<th>Transaction</th>
-					<th>Fee</th>
+					<th>Time</th>
+					<th>Index</th>
 					<th>Size</th>
+					<th>Hash</th>
 				  </tr>
 				</thead>
-				<tbody data-link = "row">
+				<tbody data-link = "row" ng-repeat="transaction in latestBlock.tx">
 				  <tr>
-					<td>1</td>
-					<td>fee</td>
-					<td>size</td>
+					<td>{{transaction.time}}</td>
+					<td>{{transaction.tx_index}}</td>
+					<td>{{transaction.size}}</td>
+					<td>{{transaction.hash}}</td>
 				  </tr>
 				</tbody>
 			  </table>
