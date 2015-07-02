@@ -143,7 +143,65 @@ angular.module('myApp.master', ['ngRoute'])
 		
 		$scope.lastTenBlocks = [];
 		
-		$http.get("http://localhost:8080/blockchain/rawblock/" + $scope.previousTenBlockHash)
+		/*$http.get("http://localhost:8080/blockchain/rawblock/" + $scope.previousTenBlockHash);
+		.then(function (result) {
+		  $scope.lastTenBlocks.push(result);
+		  $scope.latestBlock = result;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}).then(function (result)) {
+		  $scope.lastTenBlocks.push(result);
+		  $scope.latestBlock = result;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}.then(function (result)) {
+		  $scope.lastTenBlocks.push(result);
+		  $scope.latestBlock = result;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}.then(function (result)) {
+		  $scope.lastTenBlocks.push(result);
+		  $scope.latestBlock = result;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}.then(function (result)) {
+		  $scope.lastTenBlocks.push(result);
+		  $scope.latestBlock = result;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}.then(function (result)) {
+		  $scope.lastTenBlocks.push(result);
+		  $scope.latestBlock = result;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}.then(function (result)) {
+		  $scope.lastTenBlocks.push(result);
+		  $scope.latestBlock = result;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}.then(function (result)) {
+		  $scope.lastTenBlocks.push(result);
+		  $scope.latestBlock = result;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}.then(function (result)) {
+		  $scope.lastTenBlocks.push(result);
+		  $scope.latestBlock = result;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}.then(function (result)) {
+		  $scope.lastTenBlocks.push(result);
+		  $scope.latestBlock = result;
+		  
+		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
+		}.then(function (result)) {
+		  $scope.lastTenBlocks.push(result);
+		  $scope.latestBlock = result;
+		  
+		  return result;
+		};*/
+		
+		/*$http.get("http://localhost:8080/blockchain/rawblock/" + $scope.previousTenBlockHash)
 		.success(function (data, status, headers, config) {
 		  $scope.lastTenBlocks.push(data);
 		  $scope.latestBlock = data;
@@ -250,6 +308,6 @@ angular.module('myApp.master', ['ngRoute'])
 		}).error(function (data, status, headers, config) {
 		  alert("error");
 		  return status;
-		});
+		});*/
     }
 }]);
