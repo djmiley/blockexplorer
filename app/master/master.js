@@ -11,6 +11,7 @@ angular.module('myApp.master', ['ngRoute'])
 
 .controller('MasterCtrl', ['$scope', '$http', function($scope, $http) {
 	
+	
 	$scope.lastTenBlocks = [];
 	
 	$scope.latestBlock = [];
@@ -133,4 +134,122 @@ angular.module('myApp.master', ['ngRoute'])
       alert("error");
       return status;
     });
+	
+	$scope.previous = function() {
+		
+		$scope.previousTenBlockHash  = $scope.lastTenBlocks[9].prev_block;
+		
+		console.log($scope.previousTenBlockHash);
+		
+		$scope.lastTenBlocks = [];
+		
+		$http.get("http://localhost:8080/blockchain/rawblock/" + $scope.previousTenBlockHash)
+		.success(function (data, status, headers, config) {
+		  $scope.lastTenBlocks.push(data);
+		  $scope.latestBlock = data;
+		  
+		  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+			.success(function (data, status, headers, config) {
+			  $scope.lastTenBlocks.push(data);
+			  $scope.latestBlock = data;
+			  
+			  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+				.success(function (data, status, headers, config) {
+				  $scope.lastTenBlocks.push(data);
+				  $scope.latestBlock = data;
+				  
+				  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+					.success(function (data, status, headers, config) {
+					  $scope.lastTenBlocks.push(data);
+					  $scope.latestBlock = data;
+					  
+					  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+						.success(function (data, status, headers, config) {
+						  $scope.lastTenBlocks.push(data);
+						  $scope.latestBlock = data;
+						  
+						  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+							.success(function (data, status, headers, config) {
+							  $scope.lastTenBlocks.push(data);
+							  $scope.latestBlock = data;
+							  
+							  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+								.success(function (data, status, headers, config) {
+								  $scope.lastTenBlocks.push(data);
+								  $scope.latestBlock = data;
+								  
+								  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+									.success(function (data, status, headers, config) {
+									  $scope.lastTenBlocks.push(data);
+									  $scope.latestBlock = data;
+									  
+									  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+										.success(function (data, status, headers, config) {
+										  $scope.lastTenBlocks.push(data);
+										  $scope.latestBlock = data;
+										  
+										  $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block)
+											.success(function (data, status, headers, config) {
+											  $scope.lastTenBlocks.push(data);
+											  $scope.latestBlock = data;
+											  return data;
+											}).error(function (data, status, headers, config) {
+											  alert("error");
+											  return status;
+											});
+										  
+										  return data;
+										}).error(function (data, status, headers, config) {
+										  alert("error");
+										  return status;
+										});
+									  
+									  return data;
+									}).error(function (data, status, headers, config) {
+									  alert("error");
+									  return status;
+									});
+								  
+								  return data;
+								}).error(function (data, status, headers, config) {
+								  alert("error");
+								  return status;
+								});
+							  
+							  return data;
+							}).error(function (data, status, headers, config) {
+							  alert("error");
+							  return status;
+							});
+						  
+						  return data;
+						}).error(function (data, status, headers, config) {
+						  alert("error");
+						  return status;
+						});
+					  
+					  return data;
+					}).error(function (data, status, headers, config) {
+					  alert("error");
+					  return status;
+					});
+				  
+				  return data;
+				}).error(function (data, status, headers, config) {
+				  alert("error");
+				  return status;
+				});
+			  
+			  return data;
+			}).error(function (data, status, headers, config) {
+			  alert("error");
+			  return status;
+			});
+		  
+		  return data;
+		}).error(function (data, status, headers, config) {
+		  alert("error");
+		  return status;
+		});
+    }
 }]);
