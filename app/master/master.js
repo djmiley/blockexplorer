@@ -137,4 +137,5 @@ angular.module('myApp.master', ['ngRoute'])
 		var re = new RegExp($scope.searchText, 'i');
 		return !$scope.searchText || re.test(obj.height.toString()) || re.test(obj.hash.toString()) || re.test(obj.block_index.toString());
 	};
+	
 }]);
