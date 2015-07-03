@@ -39,7 +39,7 @@
                 <th>Transaction Index</th>
               </tr>
             </thead>
-            <tbody data-link = "row" ng-repeat="block in lastTenBlocks | filter: searchFilter">
+            <tbody data-link = "row" ng-repeat="block in blocks | filter: searchFilter">
               <tr>
                 <td>{{block.height}}</td>
                 <td><a href = "#/block/{{block.hash}}">{{block.hash}}</a></td>

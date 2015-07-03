@@ -11,39 +11,18 @@ angular.module('myApp.master', ['ngRoute'])
 
 .controller('MasterCtrl', ['$scope', '$http', function($scope, $http) {
 	
-	function getLatestBlock() {
-		return $http.get("http://localhost:8080/blockchain/latestblock")
-			.then(function (result) {
-				return $http.get("http://localhost:8080/blockchain/rawblock/" + result.data.hash);
-			});
-	}
-	
 	function getNextBlock(result) {
-		$scope.lastTenBlocks.push(result.data);
+		$scope.blocks.push(result.data);
   
 		return $http.get("http://localhost:8080/blockchain/rawblock/" + result.data.prev_block);	
 	}
 	
 	function getFirstPage() {
-		getLatestBlock()
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock);	
-	}
-	
-	function getFirst() {
 		$http.get("http://localhost:8080/blockchain/latestblock")
         .success(function (data, status, headers, config) {
-	        var initalBlockHash = data.hash;
+	        var initialBlockHash = data.hash;
 			
-			getPage(initalBlockHash);
+			getPageBlocks(initialBlockHash, 10);
 			
             return data;
         }).error(function (data, status, headers, config) {
@@ -52,44 +31,45 @@ angular.module('myApp.master', ['ngRoute'])
         });
 	}
 	
-	function getPageFirstBlock(initalBlockHash) {
-		return $http.get("http://localhost:8080/blockchain/rawblock/" + initalBlockHash)
+	function getPageFirstBlock(initialBlockHash) {
+		return $http.get("http://localhost:8080/blockchain/rawblock/" + initialBlockHash)
 		    .then(function (result) {
-		        $scope.lastTenBlocks.push(result.data);
+		        $scope.blocks.push(result.data);
 		  
 		        return $http.get("http://localhost:8080/blockchain/rawblock/" + result.data.prev_block);
 		    });
 	}
 	
-	function getPage(initialBlockHash) {
+	function getPageBlocks(initialBlockHash, numberOfHashes) {
 		getPageFirstBlock(initialBlockHash)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock)
-		    .then(getNextBlock);
+		    .then(function(result) {
+				numberOfHashes--;
+			    getBlocks(result, numberOfHashes);
+			});
 	}
 	
-	function getBlocks(firstHash, numberOfHashes) {
-		
+	function getBlocks(promise, numberOfHashes) {
+		if (numberOfHashes > 0) {
+			numberOfHashes--;
+			getNextBlock(promise)
+			    .then(function(result) {
+			        getBlocks(result, numberOfHashes);
+			    });
+		} else {
+			return;
+		}
 	}
 	
-	$scope.lastTenBlocks = [];
+	$scope.blocks = [];
 	
-	//getFirstPage();
-	
-	getFirst();
+	getFirstPage();
 	
 	$scope.previous = function() {
-		var initialBlockHash  = $scope.lastTenBlocks[9].prev_block;
+		var initialBlockHash  = $scope.blocks[$scope.blocks.length - 1].prev_block;
 		
-		$scope.lastTenBlocks = [];
+		$scope.blocks = [];
 		
-		getPage(initialBlockHash);
+		getPageBlocks(initialBlockHash, 10);
 		
     }
 	
