@@ -11,67 +11,37 @@ angular.module('myApp.master', ['ngRoute'])
 
 .controller('MasterCtrl', ['$scope', '$http', function($scope, $http) {
 	
+	function getNextBlock(result) {
+		$scope.lastTenBlocks.push(result.data);
+		$scope.latestBlock = result.data;
+  
+		return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);	
+	}
+	
+	function getFirstBlock() {
+		return $http.get("http://localhost:8080/blockchain/latestblock")
+			.then(function (result) {
+				$scope.latestBlock = result.data;
+		  
+				return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.hash);
+			});
+	}
 	
 	$scope.lastTenBlocks = [];
 	
 	$scope.latestBlock = [];
-	
-		$http.get("http://localhost:8080/blockchain/latestblock")
-		.then(function (result) {
-		  $scope.latestBlock = result.data;
-		  
-		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.hash);
-		}).then(function (result) {
-		  $scope.lastTenBlocks.push(result.data);
-		  $scope.latestBlock = result.data;
-		  
-		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
-		}).then(function (result) {
-		  $scope.lastTenBlocks.push(result.data);
-		  $scope.latestBlock = result.data;
-		  
-		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
-		}).then(function (result) {
-		  $scope.lastTenBlocks.push(result.data);
-		  $scope.latestBlock = result.data;
-		  
-		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
-		}).then(function (result) {
-		  $scope.lastTenBlocks.push(result.data);
-		  $scope.latestBlock = result.data;
-		  
-		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
-		}).then(function (result) {
-		  $scope.lastTenBlocks.push(result.data);
-		  $scope.latestBlock = result.data;
-		  
-		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
-		}).then(function (result) {
-		  $scope.lastTenBlocks.push(result.data);
-		  $scope.latestBlock = result.data;
-		  
-		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
-		}).then(function (result) {
-		  $scope.lastTenBlocks.push(result.data);
-		  $scope.latestBlock = result.data;
-		  
-		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
-		}).then(function (result) {
-		  $scope.lastTenBlocks.push(result.data);
-		  $scope.latestBlock = result.data;
-		  
-		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
-		}).then(function (result) {
-		  $scope.lastTenBlocks.push(result.data);
-		  $scope.latestBlock = result.data;
-		  
-		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
-		}).then(function (result) {
-		  $scope.lastTenBlocks.push(result.data);
-		  $scope.latestBlock = result.data;
-		  
-		  return $http.get("http://localhost:8080/blockchain/rawblock/" + $scope.latestBlock.prev_block);
-		});
+		
+	getFirstBlock()
+		.then(getNextBlock)
+		.then(getNextBlock)
+		.then(getNextBlock)
+		.then(getNextBlock)
+		.then(getNextBlock)
+		.then(getNextBlock)
+		.then(getNextBlock)
+		.then(getNextBlock)
+		.then(getNextBlock)
+		.then(getNextBlock);	
 	
 	$scope.previous = function() {
 		
