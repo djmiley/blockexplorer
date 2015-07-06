@@ -35,7 +35,6 @@ angular.module('myApp.block', ['ngRoute'])
 			  'hash' : $scope.block.tx[i].hash,
 			  'size' : $scope.block.tx[i].size
 		  }
-		  console.log(transaction);
 		  $scope.transactionSizes.push(transaction);
 	  }
 			
