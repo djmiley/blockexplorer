@@ -18,9 +18,9 @@ angular.module('myApp', [
       },
       link: function (scope, element) {
         //Set margins, width, and height
-        var margin = {top: 20, right: 20, bottom: 30, left: 40},
-          width = 480 - margin.left - margin.right,
-          height = 360 - margin.top - margin.bottom;
+        var margin = {top: 0, right: 0, bottom: 40, left: 40},
+          width = 1280 - margin.left - margin.right,
+          height = 640 - margin.top - margin.bottom;
           
         //Create the d3 element and position it based on margins
         var svg = d3.select(element[0])
@@ -78,7 +78,8 @@ angular.module('myApp', [
 			.append("rect")
 			.attr("class", "bar")
 			.attr("x", function(d) { return x(d.hash); })
-			.attr("width", x.rangeBand());
+			.attr("width", x.rangeBand())
+			.text(function(d) {return d.hash;});
 		 
 		  //Animate bars
 		  bars

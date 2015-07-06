@@ -30,10 +30,9 @@ angular.module('myApp.block', ['ngRoute'])
 ];
 	  var transaction;
 	  
-	  for (var i = 0; i < 3; i++) {
+	  for (var i = 0; i < $scope.block.tx[i].size; i++) {
 		  transaction = {
-			  //'hash' : $scope.block.tx[i].hash,
-			  'hash' : "hello" + i,
+			  'hash' : $scope.block.tx[i].hash,
 			  'size' : $scope.block.tx[i].size
 		  }
 		  console.log(transaction);
