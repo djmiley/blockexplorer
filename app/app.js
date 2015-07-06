@@ -18,7 +18,7 @@ angular.module('myApp', [
       },
       link: function (scope, element) {
         //Set margins, width, and height
-        var margin = {top: 0, right: 0, bottom: 40, left: 40},
+        var margin = {top: 40, right: 40, bottom: 40, left: 40},
           width = 1280 - margin.left - margin.right,
           height = 2560 - margin.top - margin.bottom;
           
@@ -37,7 +37,7 @@ angular.module('myApp', [
         //Create the axes we need for the graph
         var xAxis = d3.svg.axis()
             .scale(x)
-            .orient("bottom");
+            .orient("top");
  
         var yAxis = d3.svg.axis()
             .scale(y)
@@ -57,7 +57,7 @@ angular.module('myApp', [
 		  //Render X axis
 		  svg.append("g")
 			  .attr("class", "x axis")
-			  .attr("transform", "translate(0," + height + ")")
+			  .attr("transform", "translate(0,0)")
 			  .call(xAxis);
 			  
 		  //Render Y axis
