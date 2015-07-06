@@ -32,7 +32,7 @@ angular.module('myApp', [
  
         //Create the scales we need for the graph
         var x = d3.scale.ordinal().rangeRoundBands([0, width], .1);
-        var y = d3.scale.linear().range([height, 0]);
+        var y = d3.scale.linear().range([0, height]);
  
         //Create the axes we need for the graph
         var xAxis = d3.svg.axis()
