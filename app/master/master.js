@@ -17,12 +17,12 @@ angular.module('myApp.master', ['ngRoute'])
 		return $http.get("http://localhost:8080/blockchain/rawblock/" + result.data.prev_block);	
 	}
 	
-	function getFirstPage() {
+	function getFirstPage(numberOfHashes) {
 		$http.get("http://localhost:8080/blockchain/latestblock")
         .success(function (data, status, headers, config) {
 	        var initialBlockHash = data.hash;
 			
-			getPageBlocks(initialBlockHash, 10);
+			getPageBlocks(initialBlockHash, numberOfHashes);
 			
             return data;
         }).error(function (data, status, headers, config) {
@@ -62,7 +62,7 @@ angular.module('myApp.master', ['ngRoute'])
 	
 	$scope.blocks = [];
 	
-	getFirstPage();
+	getFirstPage(10);
 	
 	$scope.previous = function() {
 		var initialBlockHash  = $scope.blocks[$scope.blocks.length - 1].prev_block;
