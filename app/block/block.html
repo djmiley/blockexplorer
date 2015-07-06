@@ -19,7 +19,7 @@
   </head>
   <body>
   
-      <div ng-controller = 'BlockCtrl' class="container theme-showcase" role="main">
+      <div ng-app = 'myApp' ng-controller = 'BlockCtrl' class="container theme-showcase" role="main">
 	  
 		  <div class="page-header">
 			<h1>Dynamically generated block information</h1>
@@ -28,17 +28,19 @@
 		  
 		  <div class="col-sm-12">
 			  <ul class="list-group">
-				<li class="list-group-item">Height : {{latestBlock.height}}</li>
-				<li class="list-group-item">Block Index : {{latestBlock.block_index}}</li>
-				<li class="list-group-item">Hash : {{latestBlock.hash}}</li>
-				<li class="list-group-item">Merkle Root : {{latestBlock.mrkl_root}}</li>
-				<li class="list-group-item">Number of transactions : {{latestBlock.n_tx}}</li>
-				<li class="list-group-item">Time : {{latestBlock.time}}</li>
-				<li class="list-group-item">Bits : {{latestBlock.bits}}</li>
-				<li class="list-group-item">Fee : {{latestBlock.fee}}</li>
-				<li class="list-group-item">Nonce : {{latestBlock.nonce}}</li>
+				<li class="list-group-item">Height : {{block.height}}</li>
+				<li class="list-group-item">Block Index : {{block.block_index}}</li>
+				<li class="list-group-item">Hash : {{block.hash}}</li>
+				<li class="list-group-item">Merkle Root : {{block.mrkl_root}}</li>
+				<li class="list-group-item">Number of transactions : {{block.n_tx}}</li>
+				<li class="list-group-item">Time : {{block.time}}</li>
+				<li class="list-group-item">Bits : {{block.bits}}</li>
+				<li class="list-group-item">Fee : {{block.fee}}</li>
+				<li class="list-group-item">Nonce : {{block.nonce}}</li>
 			  </ul>
 		  </div>
+		  
+		  <transaction-bars data="transactionSizes"></transaction-bars>
 		  
 		  <h1>Transactions</h1>
 		  
@@ -52,7 +54,7 @@
 					<th>Hash</th>
 				  </tr>
 				</thead>
-				<tbody data-link = "row" ng-repeat="transaction in latestBlock.tx">
+				<tbody data-link = "row" ng-repeat="transaction in block.tx">
 				  <tr>
 					<td>{{transaction.time}}</td>
 					<td>{{transaction.tx_index}}</td>
