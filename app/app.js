@@ -19,7 +19,7 @@ angular.module('myApp', [
       link: function (scope, element) {
         //Set margins, width, and height
         var margin = {top: 40, right: 40, bottom: 40, left: 40},
-          width = 1280 - margin.left - margin.right,
+          width = 2560 - margin.left - margin.right,
           height = 2560 - margin.top - margin.bottom;
           
         //Create the d3 element and position it based on margins
@@ -31,25 +31,25 @@ angular.module('myApp', [
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  
         //Create the scales we need for the graph
-        var x = d3.scale.ordinal().rangeRoundBands([0, width], .1);
-        var y = d3.scale.linear().range([0, height]);
+        var y = d3.scale.ordinal().rangeRoundBands([0, width], .1);
+        var x = d3.scale.linear().range([0, height]);
  
         //Create the axes we need for the graph
         var xAxis = d3.svg.axis()
             .scale(x)
-            .orient("top");
+            .orient("top")
+			.ticks(10);
  
         var yAxis = d3.svg.axis()
             .scale(y)
-            .orient("left")
-            .ticks(10);
+            .orient("left");
         
         
         //Render graph based on 'data'
         scope.render = function(data) {
 		  //Set our scale's domains
-		  x.domain(data.map(function(d) { return d.hash; }));
-		  y.domain([0, d3.max(data, function(d) { return d.size; })]);
+		  y.domain(data.map(function(d) { return d.hash; }));
+		  x.domain([0, d3.max(data, function(d) { return d.size; })]);
 		  
 		  //Remove the axes so we can draw updated ones
 		  svg.selectAll('g.axis').remove();
@@ -72,15 +72,15 @@ angular.module('myApp', [
 		  bars.enter()
 			.append("rect")
 			.attr("class", "bar")
-			.attr("x", function(d) { return x(d.hash); })
-			.attr("width", x.rangeBand());
+			.attr("y", function(d) { return y(d.hash); })
+			.attr("height", y.rangeBand());
 		 
 		  //Animate bars
 		  bars
 			  .transition()
 			  .duration(1000)
-			  .attr('height', function(d) { return height - y(d.size); })
-			  .attr("y", function(d) { return y(d.size); })
+			  .attr('width', function(d) { return width; })
+			  .attr("x", function(d) { return width - x(d.size); })
 		};
         
         //Watch 'data' and run scope.render(newVal) whenever it changes
