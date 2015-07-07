@@ -33,6 +33,8 @@ angular.module('myApp', [
         //Create the scales we need for the graph
         var y = d3.scale.ordinal().rangeRoundBands([0, height], .1);
 		// Take away length of small hash characters
+		
+		
         var x = d3.scale.linear().range([0, width - 15.5781]);
  
         //Create the axes we need for the graph
@@ -55,6 +57,7 @@ angular.module('myApp', [
 		  
 		  // Calculate bar height for use in tooltip calculations
 		  var barHeight = Math.floor(height / data.length);
+		  var barPadding = (height - data.length * barHeight) / 2;
 		  
 		  //Remove the axes so we can draw updated ones
 		  svg.selectAll('g.axis').remove();
@@ -79,10 +82,10 @@ angular.module('myApp', [
 			  .attr("transform", "translate(0,0)")
 			  .call(yAxis);
 			  
-		  y_axis.selectAll(".tick text")
+		  /*y_axis.selectAll(".tick text")
 			.data(data)
 			.style("text-anchor", "start")
-			.attr("x", function(d) { return x(d.size); });
+			.attr("x", function(d) { return x(d.size); });*/
 			
 			
 		  var tip = d3.tip()
@@ -107,22 +110,52 @@ angular.module('myApp', [
 		  bars.enter()
 			.append("rect")
 			  .attr("class", "bar")
+			  .attr("x", 0)
 			  .attr("y", function(d) { return y(d.shortHash); })
 			  .attr("height", y.rangeBand())
+			  .attr("width", 0)
 			  .on('mouseover', tip.show)
-			  .on('mouseout', tip.hide);
+			  .on('mouseout', tip.hide)
+			  .on('click', function() {
+				  sortBars();
+			  });
 		 
 		  //Animate bars
 		  bars.transition()
 			  .duration(1000)
-			  .attr('width', function(d) { return x(d.size); })
-			  .attr("x", function(d) { return 0; })
+			  .attr('width', function(d) { return x(d.size); });
+			  
+			  
+		  var sorted = false;
+		  
+		  var sortBars = function() {
+			  sorted = !sorted;
+			  console.log(sorted);
+			  
+			  svg.selectAll("rect")
+			    .sort(function(a,b) {
+					if (sorted) {
+						return d3.descending(a.size, b.size);
+					} else {
+						return d3.ascending(a.sortid, b.sortid);
+					}
+				})
+				.transition()
+				.duration(1000)
+				.attr('height', y.rangeBand())
+				.attr("y", function(d, i) {
+					return i * barHeight + barPadding;
+				});
+		  }
+
 		};
         
         //Watch 'data' and run scope.render(newVal) whenever it changes
         //Use true for 'objectEquality' property so comparisons are done on equality and not reference
         scope.$watch('data', function(){
-          scope.render(scope.data);
+			if (scope.data) {
+				scope.render(scope.data);
+			}
         }, true);  
       }
     };
