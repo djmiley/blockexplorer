@@ -88,11 +88,10 @@ angular.module('myApp', [
 		  var tip = d3.tip()
 			.attr('class', 'd3-tip')
 		    .offset(function(d, i) {
-				var barPercentage = x(d.size) / width;
-				if (barPercentage < 0.5) {
-					return [(80 + barHeight) / 2, -x(d.size) / 2 + width / 2 + barPercentage * width / 2];
+				if (x(d.size) < width / 2) {
+					return [(80 + barHeight) / 2, width / 2];
 				} else {
-					return [(80 + barHeight) / 2, -x(d.size) / 2 + width - barPercentage * width / 2];
+					return [(80 + barHeight) / 2, -x(d.size) + width];
 				}
 			})
 			.style("text-align", "center")
