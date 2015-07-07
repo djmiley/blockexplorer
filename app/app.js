@@ -80,13 +80,7 @@ angular.module('myApp', [
 		  var y_axis = svg.append("g")
 			  .attr("class", "y axis")
 			  .attr("transform", "translate(0,0)")
-			  .call(yAxis);
-			  
-		  /*y_axis.selectAll(".tick text")
-			.data(data)
-			.style("text-anchor", "start")
-			.attr("x", function(d) { return x(d.size); });*/
-			
+			  .call(yAxis);			
 			
 		  var tip = d3.tip()
 			.attr('class', 'd3-tip')
