@@ -42,6 +42,18 @@
 	  .x.label {
 	    <!-- Some css for x label text -->
 	  }
+	  
+	  .node circle {
+	    fill: #fff;
+	    stroke: steelblue;
+	    stroke-width: 3px;
+	  }
+	  
+	  .link {
+	    fill: none;
+	    stroke: #ccc;
+	    stroke-width: 2px;
+	  }
 	</style>
   </head>
   <body>
@@ -72,7 +84,7 @@
 		  <button>Toggle Path</button>
 		  
 		  <transaction-bars data="transactionSizes"></transaction-bars>
-		  <transaction-tree data="transactionSizes"></transaction-tree>
+		  <transaction-tree data="transactionFamily"></transaction-tree>
 		  
 	  </div>
 

@@ -187,9 +187,9 @@ angular.module('myApp', [
       },
       link: function (scope, element) {
         //Set margins, width, and height
-        var margin = {top: 40, right: 40, bottom: 40, left: 40},
+        var margin = {top: 40, right: 100, bottom: 40, left: 100},
 		width = 1280 - margin.right - margin.left,
-		height = 1280 - margin.top - margin.bottom;
+		height = 5120 - margin.top - margin.bottom;
 		
 		var i = 0;
 
@@ -199,7 +199,8 @@ angular.module('myApp', [
 		var diagonal = d3.svg.diagonal()
 			.projection(function(d) { return [d.y, d.x]; });
 
-		var svg = d3.select("body").append("svg")
+		var svg = d3.select(element[0])
+		    .append("svg")
 			.attr("width", width + margin.right + margin.left)
 			.attr("height", height + margin.top + margin.bottom)
 		  .append("g")
@@ -207,38 +208,11 @@ angular.module('myApp', [
         
         
         //Render graph based on 'data'
-        scope.render = function(data) {
+        scope.render = function(data) {		
 
-var treeData = [
-  {
-    "name": "Top Level",
-    "parent": "null",
-    "children": [
-      {
-        "name": "Level 2: A",
-        "parent": "Top Level",
-        "children": [
-          {
-            "name": "Son of A",
-            "parent": "Level 2: A"
-          },
-          {
-            "name": "Daughter of A",
-            "parent": "Level 2: A"
-          }
-        ]
-      },
-      {
-        "name": "Level 2: B",
-        "parent": "Top Level"
-      }
-    ]
-  }
-];		
-
-		  var root = treeData[0];
-		  root.xMem = height / 2;
-		  root.yMem = 0;
+		  var root = data;
+		  root.xMem = 0;
+		  root.yMem = height / 2;
 		  
 		  update(root);
 		  
@@ -263,12 +237,12 @@ var treeData = [
 
 		  nodeEnter.append("circle")
 			  .attr("r", 1e-6)
-			  .style("fill", function(d) { return d.childrenMem ? "lightsteelblue" : "#fff"; });
+			  .style("fill", function(d) { return d.hiddenChildren ? "steelblue" : "#ffffff"; });
 
 		  nodeEnter.append("text")
-			  .attr("x", function(d) { return d.children || d.childrenMem ? -16 : 16; })
+			  .attr("x", function(d) { return d.children || d.hiddenChildren ? -14 : 14; })
 			  .attr("dy", ".35em")
-			  .attr("text-anchor", function(d) { return d.children || d.childrenMem ? "end" : "start"; })
+			  .attr("text-anchor", function(d) { return d.children || d.hiddenChildren ? "end" : "start"; })
 			  .text(function(d) { return d.name; })
 			  .style("fill-opacity", 1e-6);
 
@@ -279,7 +253,7 @@ var treeData = [
 
 		  nodeUpdate.select("circle")
 			  .attr("r", 10)
-			  .style("fill", function(d) { return d.childrenMem ? "lightsteelblue" : "#fff"; });
+			  .style("fill", function(d) { return d.hiddenChildren ? "steelblue" : "#ffffff"; });
 
 		  nodeUpdate.select("text")
 			  .style("fill-opacity", 1);
@@ -332,11 +306,11 @@ var treeData = [
 		// Toggle children on click.
 		function click(d) {
 		  if (d.children) {
-			d.childrenMem = d.children;
+			d.hiddenChildren = d.children;
 			d.children = null;
 		  } else {
-			d.children = d.childrenMem;
-			d.childrenMem = null;
+			d.children = d.hiddenChildren;
+			d.hiddenChildren = null;
 		  }
 		  update(d);
 		}
