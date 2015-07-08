@@ -119,8 +119,8 @@ angular.module('myApp', [
 
 		  var button = d3.select('button');
 
-		  button.html(function(sortStyle) {
-			  return setButtonText(sortStyle);
+		  button.html(function() {
+			  return "Sorted by Block Ordering";
 		  })
 		    .on('click', function() {
 			  sortBars();
@@ -133,58 +133,32 @@ angular.module('myApp', [
 		  var TIME = 2;
 		  var INDEX = 3;
 		  
-		  function setButtonText(sortStyle) {
+		  var sortingTypeText = ["Block Ordering", "Size", "Time", "Index"];
+ 		  
+		  var sortModes = [];
+		  sortModes[0] = function(a, b) { return d3.ascending(a.sortid, b.sortid); };
+		  sortModes[1] = function(a, b) { return d3.descending(a.size, b.size); };
+		  sortModes[2] = function(a, b) { return d3.ascending(a.time, b.time); };
+		  sortModes[3] = function(a, b) { return d3.ascending(a.index, b.index); };
+		  
+		  function setButtonText() {
 			  var text = "Sorted by ";
 			  
-			  switch (sortStyle) {
-				case ID:
-					text += "Block Ordering";
-					break;
-				case SIZE:
-					text += "Size";
-					break;
-				case TIME:
-					text += "Time";
-					break;
-				case INDEX:
-					text += "Index";
-					break;
-				default:
-					break;  
-			  }
+			  text += sortingTypeText[sortStyle];
 			  
 			  return text;
 		  }
 		  
 		  var sortBars = function() {
 			  sortStyle += 1;
-			  if (sortStyle == 4) {
-				  sortStyle = 0;
-			  }
+			  sortStyle %= 4;
 			  
 			  button.html(function() {
-			      return setButtonText(sortStyle);
+			      return setButtonText();
 		      })
 			  
 			  svg.selectAll("rect")
-			    .sort(function(a,b) {
-					switch (sortStyle) {
-					case ID:
-						return d3.ascending(a.sortid, b.sortid);
-						break;
-					case SIZE:
-						return d3.descending(a.size, b.size);
-						break;
-					case TIME:
-						return d3.ascending(a.time, b.time);
-						break;
-					case INDEX:
-						return d3.ascending(a.index, b.index);
-						break;
-					default:
-					    break;
-					}
-				})
+			    .sort(sortModes[sortStyle])
 				.transition()
 				.duration(1000)
 				.attr('height', y.rangeBand())
