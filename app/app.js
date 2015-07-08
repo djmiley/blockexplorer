@@ -109,29 +109,80 @@ angular.module('myApp', [
 			  .attr("height", y.rangeBand())
 			  .attr("width", 0)
 			  .on('mouseover', tip.show)
-			  .on('mouseout', tip.hide)
-			  .on('click', function() {
-				  sortBars();
-			  });
+			  .on('mouseout', tip.hide);
 		 
 		  //Animate bars
 		  bars.transition()
 			  .duration(1000)
 			  .attr('width', function(d) { return x(d.size); });
+			
+
+		  var button = d3.select('button');
+
+		  button.html(function(sortStyle) {
+			  return setButtonText(sortStyle);
+		  })
+		    .on('click', function() {
+			  sortBars();
+		  });
 			  
+		  var sortStyle = 0;
+		  
+		  var ID = 0;
+		  var SIZE = 1;
+		  var TIME = 2;
+		  var INDEX = 3;
+		  
+		  function setButtonText(sortStyle) {
+			  var text = "Sorted by ";
 			  
-		  var sorted = false;
+			  switch (sortStyle) {
+				case ID:
+					text += "Block Ordering";
+					break;
+				case SIZE:
+					text += "Size";
+					break;
+				case TIME:
+					text += "Time";
+					break;
+				case INDEX:
+					text += "Index";
+					break;
+				default:
+					break;  
+			  }
+			  
+			  return text;
+		  }
 		  
 		  var sortBars = function() {
-			  sorted = !sorted;
-			  console.log(sorted);
+			  sortStyle += 1;
+			  if (sortStyle == 4) {
+				  sortStyle = 0;
+			  }
+			  
+			  button.html(function() {
+			      return setButtonText(sortStyle);
+		      })
 			  
 			  svg.selectAll("rect")
 			    .sort(function(a,b) {
-					if (sorted) {
-						return d3.descending(a.size, b.size);
-					} else {
+					switch (sortStyle) {
+					case ID:
 						return d3.ascending(a.sortid, b.sortid);
+						break;
+					case SIZE:
+						return d3.descending(a.size, b.size);
+						break;
+					case TIME:
+						return d3.ascending(a.time, b.time);
+						break;
+					case INDEX:
+						return d3.ascending(a.index, b.index);
+						break;
+					default:
+					    break;
 					}
 				})
 				.transition()
