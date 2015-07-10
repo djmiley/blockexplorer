@@ -22,49 +22,39 @@ angular.module('myApp.block', ['ngRoute'])
 	  $scope.transactionSizes = [];
 	  
 	  $scope.transactionFamily = [];
-
-	  var transaction;
 	  
 	  var transactionTree = [];
-	  
-	  var transactionStem = [];
-	  
-	  var hiddenChildren = [];
-	  
-	  var child = []
-	  
-	  for (var i = 0; i < $scope.block.tx[i].size; i++) {
-		  transaction = {
+	 	  
+	  for (var i = 0; i < $scope.block.tx.length; i++) {
+		  var currentTx = $scope.block.tx[i];
+		  
+		  var transaction = {
 			  'sortid' : i,
-			  'hash' : $scope.block.tx[i].hash,
-			  'shortHash' : $scope.block.tx[i].hash.substr(0,6) + "...",
-			  'time' : $scope.block.tx[i].time,
-			  'index' : $scope.block.tx[i].tx_index,
-			  'size' : $scope.block.tx[i].size
+			  'hash' : currentTx.hash,
+			  'shortHash' : currentTx.hash.substr(0,6) + "...",
+			  'time' : currentTx.time,
+			  'index' : currentTx.tx_index,
+			  'size' : currentTx.size
 		  }
 		  
-		  hiddenChildren = [];
+		 var hiddenChildren = [];
 		  
-		  for (var j = 0; j < $scope.block.tx[i].inputs.length; j++) {
-			  child = {
-				  'name': $scope.block.tx[i].inputs[j].sequence,
-				  'parent' : $scope.block.tx[i].tx_index
+		  for (var j = 0; j < currentTx.inputs.length; j++) {
+			  var currentInput = currentTx.inputs[j];
+			  
+			  if (currentInput.prev_out) {
+				  var child = {
+					  'name': curremtInput.prev_out.tx_index,
+					  'parent' : currentTx.tx_index
+				  }
+				  hiddenChildren.push(child);				  
 			  }
-			  hiddenChildren.push(child);
 		  }
 		  
-		  for (var k = 0; k < $scope.block.tx[i].out.length; k++) {
-			  child = {
-				  'name': $scope.block.tx[i].out[k].tx_index,
-				  'parent' : $scope.block.tx[i].tx_index
-			  }
-			  hiddenChildren.push(child);
-		  }
-		  
-		  transactionStem = {
-			  'name' : $scope.block.tx[i].tx_index,
+		  var transactionStem = {
+			  'name' : currentTx.tx_index,
 			  'parent' : "",
-			  'hiddenChildren' : hiddenChildren,
+			  'hiddenChildren' : hiddenChildren
 		  }
 
 		  transactionTree.push(transactionStem);
